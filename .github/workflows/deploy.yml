@@ -26,14 +26,17 @@ jobs:
         run: |
           rpm_count=$(ls ./x86_64/*.rpm | wc -l)
             if [ "$rpm_count" -gt 1 ]; then
-            echo "More than 1 RPM files found, performing cleanup."
-          latest_rpm=$(ls ./x86_64/*.rpm | sort -V | tail -n 1)
-          for rpm in ./x86_64/*.rpm; do
-            if [[ "$rpm" != "$latest_rpm" ]]; then
-              rm -v "$rpm"
+               echo "More than 1 RPM files found, performing cleanup."
+               latest_rpm=$(ls ./x86_64/*.rpm | sort -V | tail -n 1)
+               for rpm in ./x86_64/*.rpm; do
+                 if [[ "$rpm" != "$latest_rpm" ]]; then
+                   rm -v "$rpm"
+                 fi
+               done
+            else
+              echo "less than 2 RPM found, skipping..."
             fi
-          done
-
+          
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Build with Jekyll
