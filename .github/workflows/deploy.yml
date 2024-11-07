@@ -24,7 +24,10 @@ jobs:
         
       - name: Delete obsolete RPM files
         run: |
-          latest_rpm=$(ls ./x86_64/*.rpm | sort -V | tail -n 1)  # Sort by version
+          rpm_count=$(ls ./x86_64/*.rpm | wc -l)
+            if [ "$rpm_count" -gt 1 ]; then
+            echo "More than 1 RPM files found, performing cleanup."
+          latest_rpm=$(ls ./x86_64/*.rpm | sort -V | tail -n 1)
           for rpm in ./x86_64/*.rpm; do
             if [[ "$rpm" != "$latest_rpm" ]]; then
               rm -v "$rpm"
