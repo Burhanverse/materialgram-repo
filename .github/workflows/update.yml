@@ -1,4 +1,4 @@
-name: Update Version
+name: Update Materialgram
 
 on:
   schedule:
@@ -9,21 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  version:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Run update version script
-      run: |
-        chmod +x update.sh
-        ./update.sh
-        git push
-        
   update:
-    needs: version
     runs-on: ubuntu-latest
 
     container:
@@ -39,5 +25,5 @@ jobs:
           git clone https://${{ secrets.PAT }}@github.com/burhancodes/materialgram-repo.git repo
           cd repo
           git pull origin main
-          chmod +x build.sh
-          ./build.sh
+          chmod +x update.sh
+          ./update.sh
