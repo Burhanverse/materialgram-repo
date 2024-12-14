@@ -82,6 +82,7 @@ cd ..
 echo "Adding and committing changes to git..."
 git config --global user.name "itsnotsos"
 git config --global user.email "179767921+itsnotsos@users.noreply.github.com"
+git config --global core.bigFileThreshold 100M
 git add rpms
 git commit -m "${LATEST_VERSION}"
 git push
